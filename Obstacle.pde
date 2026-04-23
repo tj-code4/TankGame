@@ -1,0 +1,26 @@
+class Obstacle {
+  int x, y, w, h, speed, health;
+  PImage obst1;
+
+  //constructor
+  Obstacle(int x, int y) {
+    this.x = x;
+    this.y = y;
+    w = 100;
+    h = 100;
+    speed = 2;
+    health = 100;
+    obst1= loadImage("Obstacle1.png");
+  }
+  void display() {
+    imageMode(CENTER);
+    image(obst1, x, y);
+  }
+
+  void move() {
+    x = x+ speed;
+    if (x> width) {
+      x = 0;
+    }
+  }
+}
