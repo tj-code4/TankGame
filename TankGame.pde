@@ -35,6 +35,9 @@ void draw() {
     Obstacle obs = obstacles.get(i);
     obs.display();
     obs.move();
+    if(obs.reachedSide()) {
+      obstacles.remove(i);
+    }
   }
   //displaying Projectiles
   for (int i = 0; i < projectiles.size(); i++) {
@@ -43,8 +46,11 @@ void draw() {
     p.move();
   }
   tank1.display();
+  
+  
   scorePanel();
 }
+
 void scorePanel() {
   fill(127, 127);
   rectMode(CENTER);

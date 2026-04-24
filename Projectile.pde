@@ -14,7 +14,7 @@ class Projectile {
     rect(x, y, w, h);
   }
 
-  void move(int x, int y) {
+  void move() {
     y = y - speed;
   }
 }
