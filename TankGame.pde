@@ -10,7 +10,7 @@ void setup() {
   size(750, 750);
   bg = loadImage("bg3.png");
   tank1 = new Tank();
- // obstacles.add(new Obstacle(400, 300));
+  // obstacles.add(new Obstacle(400, 300));
   //obstacles.add(new Obstacle(25, 500));
   //obstacles.add(new Obstacle(100, 200));
   //obstacles.add(new Obstacle(200, 650));
@@ -24,32 +24,50 @@ void draw() {
   imageMode(CORNER);
   image(bg, 0, 0);
   // Add timer to distribute obstacles
-  if(obsTimer.isFinished()) {
+  if (obsTimer.isFinished()) {
     obstacles.add(new Obstacle(-100, int(random(height))));
     obsTimer.start();
   }
   //obstacle.add(new Obstacle(250, 250));
-  
+
   //displaying Obstacles
   for (int i = 0; i < obstacles.size(); i++) {
     Obstacle obs = obstacles.get(i);
     obs.display();
     obs.move();
-    if(obs.reachedSide()) {
+    if (obs.reachedSide()) {
       obstacles.remove(i);
     }
+    //detect collistion to tank
+    if (tank1.intersect(obs)) {
+      //impact to change score, health and obstacle
+    }
+    //displaying Projectiles
+    for (int i = 0; i < projectiles.size(); i++) {
+      Projectile p = projectiles.get(i);
+      for (int j = 0; j < projectiles.size(); j++) {
+        Obstacle obs = obstacles.get(j);
+        if (p.intersect(obs)) {
+          score = score +100;
+          projectiles.remove(i);
+          obstacles.remove(j);
+          continue;
+        }
+      }
+        p.display();
+        p.move();
+        if (p.reachedSide()) {
+          projectiles.remove(i);
+        }
+      }
+      tank1.display();
+
+
+      scorePanel();
+      println("Objects in Memory:"+obstacles.size());
+      println("Projectiles in Memory:"+projectiles.size());
+    }
   }
-  //displaying Projectiles
-  for (int i = 0; i < projectiles.size(); i++) {
-    Projectile p = projectiles.get(i);
-    p.display();
-    p.move();
-  }
-  tank1.display();
-  
-  
-  scorePanel();
-}
 
 void scorePanel() {
   fill(127, 127);
