@@ -32,22 +32,22 @@ void draw() {
 
   //displaying Obstacles
   for (int i = 0; i < obstacles.size(); i++) {
-    Obstacle obs = obstacles.get(i);
-    obs.display();
-    obs.move();
-    if (obs.reachedSide()) {
+    Obstacle o = obstacles.get(i);
+    o.display();
+    o.move();
+    if (o.reachedSide()) {
       obstacles.remove(i);
     }
     //detect collistion to tank
-    if (tank1.intersect(obs)) {
+    if (tank1.intersect(o)) {
       //impact to change score, health and obstacle
     }
     //displaying Projectiles
     for (int i = 0; i < projectiles.size(); i++) {
       Projectile p = projectiles.get(i);
       for (int j = 0; j < projectiles.size(); j++) {
-        Obstacle obs = obstacles.get(j);
-        if (p.intersect(obs)) {
+        Obstacle o = obstacles.get(j);
+        if (p.intersect(o)) {
           score = score +100;
           projectiles.remove(i);
           obstacles.remove(j);
@@ -61,7 +61,6 @@ void draw() {
         }
       }
       tank1.display();
-
 
       scorePanel();
       println("Objects in Memory:"+obstacles.size());
@@ -82,12 +81,16 @@ void scorePanel() {
 void keyPressed() {
   if (key == 'w') {
     tank1.move('w');
+    tank1.idir = 'w';
   } else if (key == 's') {
     tank1.move('s');
+    tank1.idir = 's';
   } else if (key == 'a') {
     tank1.move('a');
+    tank1.idir = 'a';
   } else if (key == 'd') {
     tank1.move('d');
+    tank1.idir = 'd';
   }
 }
 
